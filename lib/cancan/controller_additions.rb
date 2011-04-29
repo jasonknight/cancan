@@ -1,9 +1,11 @@
 module CanCan
-
   # This module is automatically included into all controllers.
   # It also makes the "can?" and "cannot?" methods available to all views.
   module ControllerAdditions
     module ClassMethods
+      # Allows you to pass a different current_user function, in case you have overidden it.
+      # Use: CanCan::ControllerAdditions::ClassMethods.get_user_method = 'my_user_func'
+      @@get_user_method = 'current_user'
       # Sets up a before filter which loads and authorizes the current resource. This performs both
       # load_resource and authorize_resource and accepts the same arguments. See those methods for details.
       #
@@ -346,7 +348,8 @@ module CanCan
     # Notice it is important to cache the ability object so it is not
     # recreated every time.
     def current_ability
-      @current_ability ||= ::Ability.new(current_user)
+      cuser = eval(@@get_user_method)
+      @current_ability ||= ::Ability.new(cuser)
     end
 
     # Use in the controller or view to check the user's permission for a given action
