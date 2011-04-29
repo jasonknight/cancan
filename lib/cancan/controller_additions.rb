@@ -4,7 +4,7 @@ module CanCan
   module ControllerAdditions
     module ClassMethods
       # Allows you to pass a different current_user function, in case you have overidden it.
-      # Use: CanCan::ControllerAdditions::ClassMethods.get_user_method = 'my_user_func'
+      # Use: CanCan::ControllerAdditions::ClassMethods.get_user_method = 'my_user_func'.
       @@get_user_method = 'current_user'
       # Sets up a before filter which loads and authorizes the current resource. This performs both
       # load_resource and authorize_resource and accepts the same arguments. See those methods for details.
